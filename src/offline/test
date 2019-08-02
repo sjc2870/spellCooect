@@ -1,0 +1,18 @@
+/*************************************************************************
+ > File Name: test.cc
+ > Author: SJC
+ > Mail: 1123305914@qq.com 
+ > Created Time: Tue 30 Jul 2019 06:55:10 PM PDT
+ ************************************************************************/
+
+#include<iostream>
+#include <string>
+using std::cout;
+using std::endl;
+using std::string;
+
+int main(int argc,char* argv[]){
+	string s = "① ";
+	cout << s.size() << endl;
+}
+
