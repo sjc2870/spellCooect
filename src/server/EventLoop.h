@@ -21,7 +21,6 @@ using std::shared_ptr;
 
 namespace wd
 {
-class Config;
 class Acceptor;
 class TcpConnection;
 
@@ -31,7 +30,7 @@ public:
 	using TcpConnectionPtr = std::shared_ptr<TcpConnection>;
 	using TcpConnectionCallback = std::function<void(const TcpConnectionPtr&)>;
 	using Functor = std::function<void()>;
-	EventLoop(Acceptor & acceptor,Config &c);
+	EventLoop(Acceptor & acceptor);
 	void loop();
 	void unloop();
 	void runInLoop(Functor && cb);
@@ -64,7 +63,6 @@ private:
 	vector<struct epoll_event> _eventList;
 	map<int, TcpConnectionPtr> _conns;
 	bool _isLooping;
-	Config & _config;
 	
 	MutexLock _mutex;
 	vector<Functor> _pendingFunctors;

@@ -14,6 +14,12 @@ using std::ifstream;
 using std::ofstream;
 using std::istringstream;
 namespace wd{
+	Config* Config::getInstance(){
+		if(m_instance==nullptr){
+			m_instance = new Config("../../config/config");
+		}
+		return m_instance;
+	}
 	Config::Config(string configFileName)
 	:m_configFileName(configFileName){
 		ifstream ifs(m_configFileName);
@@ -21,11 +27,6 @@ namespace wd{
 		ifs >> m_englishidxFileName;
 		ifs >> m_chinesefreFileName;
 		ifs >> m_chineseidxFileName;
-	}
-
-	Config::~Config()
-	{
-		cout << "~Config" << endl;
 	}
 
 	void Config::readFile(){
@@ -78,8 +79,8 @@ namespace wd{
 		}
 	}
 	void Config::test(){
-		cout << "test " << m_chinesefreFile.size() << endl;
-		cout << "idxfile" << m_chineseidxFile.size() << "  "<< m_chineseidxFile.empty() << endl;
+		cout << "中文频率文件的大小为" << m_chinesefreFile.size() << endl;
+		cout << "中文索引文件的大小为" << m_chineseidxFile.size() << "  "<< m_chineseidxFile.empty() << endl;
 		auto it = m_chinesefreFile.rbegin();
 		cout << "中文频率文件最后一条记录的单词--频率是:" << it->first <<"--" << it->second << endl;
 #if 0

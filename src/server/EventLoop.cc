@@ -19,13 +19,12 @@ using std::endl;
 namespace wd
 {
 
-EventLoop::EventLoop(Acceptor & acceptor,Config &config)
+EventLoop::EventLoop(Acceptor & acceptor)
 : _efd(createEpollFd())
 , _eventfd(createEventFd())
 , _acceptor(acceptor)
 , _eventList(1024)
 , _isLooping(false)
-,_config(config)
 {
 	//_config.test();
 	addEpollFdRead(_acceptor.fd());
@@ -101,7 +100,7 @@ void EventLoop::handleNewConnection()
 {
 	int peerfd = _acceptor.accept();
 	addEpollFdRead(peerfd);
-	TcpConnectionPtr conn(new TcpConnection(peerfd, this,_config,"./cache_file"));
+	TcpConnectionPtr conn(new TcpConnection(peerfd, this));
 	conn->setConnectionCallback(_onConnection);
 	conn->setMessageCallback(_onMessage);
 	conn->setCloseCallback(_onClose);

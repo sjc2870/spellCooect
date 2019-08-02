@@ -8,9 +8,9 @@
 #include "Config.h"
 namespace wd
 {
-TcpServer::TcpServer(const string & ip, unsigned short port,Config &c)
+TcpServer::TcpServer(const string & ip, unsigned short port)
 : _acceptor(ip, port)
-, _loop(_acceptor,c)
+, _loop(_acceptor)
 {}
 
 void TcpServer::start()

@@ -20,13 +20,13 @@ namespace wd{
 
 class Config{
 public:
-	Config(string);
-	~Config();
 	void readFile();
 	set<int>& getIdxs(string,int );
 	std::pair<string,int> getWordAndFre(int i,int flag);
 	void test();
+	static Config* getInstance();
 private:
+	Config(string);
 	void readfreFile(const string&,int flag); //0代表英文，1代表中文
 	void readidxFile(const string&,int flag);
 private:
@@ -39,6 +39,7 @@ private:
 	unordered_map<string,set<int>> m_idxFile;
 	vector<std::pair<string,int>> m_chinesefreFile;
 	unordered_map<string,set<int>> m_chineseidxFile;
-
+	
+	static Config* m_instance;
 };
 }//end of namespace wd

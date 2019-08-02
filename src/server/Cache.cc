@@ -20,6 +20,13 @@ using std::endl;
 
 namespace wd{
 
+Cache* Cache::getInstance(string path){
+	if(m_pInstance == nullptr){
+		m_pInstance = new Cache(path);
+	}
+	return m_pInstance;
+}
+
 void Cache::readCache(){
 //以尾插法插入到双向链表中
 	ifstream ifs(m_fileName);
@@ -53,8 +60,12 @@ string Cache::get(string key){
 		setHead(pnode);
 		return it->second->m_value;
 	}
-	//如果缓存未命中，从文件中读入,并放到缓存中去
-	string value = m_conn->getReturnString(key);
+	//如果缓存未命中，返回一个空串
+	string s;
+	return s;
+}
+
+void Cache::set(string key,string value){
 	CacheNode* c = new CacheNode(key,value);
 	if(m_cache.size()==m_size){
 		//如果缓存已满,先剔除链表尾的元素
@@ -64,12 +75,7 @@ string Cache::get(string key){
 	}
 	setHead(c);
 	m_cache[key] = c;
-	
-	//cout << "cache_map中的数据为：" << endl; 
-	//test();
-	return value;
 }
-
 void Cache::remove(CacheNode* c){
 	if(c->m_pre!=nullptr){
 		c->m_pre->m_next = c->m_next;

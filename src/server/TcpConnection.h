@@ -33,7 +33,7 @@ class TcpConnection
 , public std::enable_shared_from_this<TcpConnection>
 {
 public:
-	TcpConnection(int fd, EventLoop * ,Config&,string);
+	TcpConnection(int fd, EventLoop *);
 	~TcpConnection();
 
 	string receive();
@@ -44,9 +44,6 @@ public:
 	string getReturnString(string);
 	string getReturnWordFromCache(string);
 	int editDistance(string,string);
-	void writeToFile(){
-		_cache.writeToFile();
-	}
 
 	void shutdown();
 
@@ -57,8 +54,6 @@ public:
 	void handleConnectionCallback();
 	void handleMessageCallback();
 	void handleCloseCallback();
-	
-	string toJson(string,string);
 private:
 	size_t length(const string&);
 	size_t nBytes(const char c);
@@ -72,8 +67,6 @@ private:
 	InetAddress _peerAddr;
 	bool _isShutdwonWrite;
 	EventLoop * _loop;
-	Config &_config;
-	Cache _cache;
 
 	TcpConnectionCallback _onConnection;
 	TcpConnectionCallback _onMessage;

@@ -15,11 +15,10 @@ namespace wd
 
 using TcpConnectionPtr = std::shared_ptr<TcpConnection>;
 using TcpConnectionCallback = std::function<void(const TcpConnectionPtr&)>;
-class Config;
 class TcpServer
 {
 public:
-	TcpServer(const string & ip, unsigned short port,Config &config);
+	TcpServer(const string & ip, unsigned short port);
 	void start();
 
 	void setConnectionCallback(TcpConnectionCallback && cb);
